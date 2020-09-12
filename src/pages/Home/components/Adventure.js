@@ -7,12 +7,12 @@ import{
 export const Adventure = (props) => (
     <Link to={`/detail/${props.id}`}>  
         <div className="adventure-container">
-            <img src={props.image} width="150" height="150"/>
+            <img src={props.image}/>
             <article>
-                <h3>{props.name}</h3>
+                <h3>{props.title}</h3>
                 <p>{props.place}</p>
-                <h2>COP <small>{props.price}</small></h2>
-                <Score stars={props.stars} users={props.users}  size="16px" />
+                <h5>COP <small>{props.price}</small></h5>
+                <Score stars={props.score} users={props.users}  size="16px" />
             </article>
         </div>
     </Link>

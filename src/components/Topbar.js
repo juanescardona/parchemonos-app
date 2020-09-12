@@ -2,6 +2,6 @@ import React from 'react'
 
 export const Topbar = () => (
     <div className="topbar">
-        <p>Parchémonos</p>
+        <img width= "280px" src="/static/logo2.png" alt="logo" />
     </div>
 )
