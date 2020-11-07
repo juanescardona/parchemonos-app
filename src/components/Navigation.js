@@ -1,10 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { MENU_OPTIONS } from './../data/MenuOptions'
 
 const ItemMenu = (props) => (
     <>
         {
-            props.title == 'Inicio'
+            props.title === 'Inicio'
             ?
             <li className="active">
                 <a href="#">

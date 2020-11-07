@@ -1,25 +1,40 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import { Page } from '../Page'
 import { Header } from './../../components/Header'
 import { CardDetail } from './components/CardDetail'
-import { useParams } from 'react-router-dom'
-import {EXPERIENCES_DATA} from './../../data/Experiences.Data'
-import { Adventure } from '../Home/components/Adventure'
+import { useParams,useHistory } from 'react-router-dom'
+import { requestHttp } from '../../services/HTTPServer'
 import { Button } from '../../components/Button'
+import {UserContext} from './../../contexts/UserContext'
 
 export const Detail = () => {
     
     const { id } = useParams()
+    const history = useHistory()
     const [adventure, setAdventure] = useState(null)
+    const  {user} = useContext(UserContext)
 
     //constructor / component did mount 
     useEffect(() => {
-        const experience = EXPERIENCES_DATA.find(elemento => elemento.id === Number(id))
-        if(experience) setAdventure(experience)
-    }, [])
+        loadDetail()
+    }, [id])
 
-    const clickButton = () => {
-        alert('El boton fue presionado ....')
+    const goToBookingHandler = () => {
+        if(user.isAuthenticated){
+            history.push(`/booking/${id}`)
+        }else{
+            history.push(`/login`)
+        }
+    }
+
+    const loadDetail = async() =>{
+        try {
+            const response = await requestHttp('get', `experiences/detail/${id}`)
+            console.log('response', response)
+            setAdventure(response.experience)
+        } catch (error) {
+            console.log('Error', error)   
+        }
     }
 
     //retorna el jsx
@@ -31,7 +46,8 @@ export const Detail = () => {
                 <>
                     <Header title={adventure.title} />
                     <CardDetail {...adventure} />
-                    <Button onPress={clickButton} label="¡Reserva tu parche!"/>
+                    <Button onPress={goToBookingHandler} label="¡Reserva tu parche!"/>
+                    {user.name}                    
                 </>
                 :
                 <p>Experience no encontrada</p>

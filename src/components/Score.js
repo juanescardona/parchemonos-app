@@ -12,9 +12,9 @@ export const Score = ({ stars = 0, users = 0, size = "14px"}) => (
     <section className="score">
         <div>
             {
-                [1,2,3,4,5].map(el => el <= stars ? <StartFill size={size} /> : <StartEmpty size={size} /> )
+                [1,2,3,4,5].map((el, key) => el <= stars ? <StartFill key={key} size={size} /> : <StartEmpty key={key} size={size} /> )
             } 
         </div>
-         <p style= {{fontSize: size}}>{users} </p>
+         <p style= {{fontSize: size}}>{users} usuarios</p>
     </section>
 )
