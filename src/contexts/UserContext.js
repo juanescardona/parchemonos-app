@@ -1,4 +1,4 @@
-import React, {useState, createContext} from 'react'
+import React, {useState, createContext, useEffect} from 'react'
 
 const initialState = {
     name: '',
@@ -13,6 +13,18 @@ export const UserContext = createContext(initialState)
 export const UserContextStore = (props) => {
 
     const [user, setUser] = useState(initialState)
+
+    useEffect(() => {
+        console.log('Ejecutando contexto de usuario')
+        checkLocalToken()
+    }, [])
+
+    const checkLocalToken = () =>{
+        const token = localStorage.getItem('TOKEN')
+        if(token){
+            setUser({isAuthenticated: true})
+        }
+    }
 
     return(
         <UserContext.Provider value = {{user, setUser}}>

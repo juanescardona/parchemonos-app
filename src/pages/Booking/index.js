@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Page } from '../Page'
 import { Button } from '../../components/Button'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
+import { requestHttp } from '../../services/HTTPServer'
 
 export const Booking = () => {
     
@@ -9,6 +10,7 @@ export const Booking = () => {
     const [bookingDate, setBookingDate] = useState('')
     const [comments, setComments] = useState('')
     const [isValidForm, setIsValidForm] = useState(false)
+    const history = useHistory()
     
     useEffect(() => {
         setIsValidForm(new Date(bookingDate) > new Date())
@@ -17,11 +19,23 @@ export const Booking = () => {
     const bookingFormHandler = (e) => {
         e.preventDefault()
         const form = {
-            idExperience: id,
-            bookingDate,
-            comments
+            booking_date: bookingDate,
+            comment: comments
         }
         console.log('formulario a enviar', form)
+        createBooking(form)
+    }
+
+    const createBooking = async(data) =>{
+        try {
+            const response = await requestHttp('post', `booking/${id}`, data)
+            console.log('booking:', response.booking)
+            const idReserva = response.booking._id
+            alert('Reserva Exitosa')
+            history.push(`/rate/${idReserva}`)
+        } catch (error) {
+            alert('No se realizó la reserva')
+        }
     }
 
     return (

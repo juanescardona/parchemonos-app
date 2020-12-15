@@ -3,7 +3,7 @@ import { Page } from '../Page'
 import { Button } from '../../components/Button'
 import { validateEmail } from './../../utils/validateEmail'
 import { UserContext} from './../../contexts/UserContext'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { requestHttp } from '../../services/HTTPServer'
 
 export const Login = () => {
@@ -81,6 +81,13 @@ export const Login = () => {
                 </div>
                 <Button disabled={!isValidForm} label="Enviar Registro" type="submit"/>
             </form>
+            <div>
+            <p> Si aún no eres miembro :  
+                <Link to = {'/register'}>
+                     Regístrate ahora
+                </Link>
+            </p>
+            </div> 
         </Page>
     )
 }

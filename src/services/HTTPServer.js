@@ -1,9 +1,11 @@
 import axios from 'axios'
 
 const headersConfig = () => {
+    const token = localStorage.getItem('TOKEN')
     const defaultHeaders = {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`
     }
     return defaultHeaders
 }
@@ -21,7 +23,7 @@ export const requestHttp = async (method, url, data = {}, params = {}) => {
         }
         const response = await axios(options)
         return response.data
-    } catch (error) {
+    } catch (error) {        
         throw error
     }
 }

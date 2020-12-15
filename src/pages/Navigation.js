@@ -4,6 +4,7 @@ import { Detail } from './Detail'
 import { Login } from './Login'
 import { Booking } from './Booking'
 import { Register } from './Register'
+import { Rate } from './Rate'
 
 import {
     BrowserRouter as Router,
@@ -21,6 +22,7 @@ export const Navigation = () => (
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/booking/:id" component={Booking} />
+            <Route path="/rate/:id" component={Rate} />
             <Route path="/class" component={SpikeClassComponent} />
             <Route path="/function" component={SpikeFunctionComponent} />
         </Switch>
